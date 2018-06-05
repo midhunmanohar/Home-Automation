@@ -1,0 +1,1 @@
+{"light": "OFF", "fan": "ON", "time": "31 Mar 2018 10:20"}
