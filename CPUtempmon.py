@@ -15,10 +15,10 @@ def getCPUtemperature():
 	return(res.replace("temp=","").replace("'C\n",""))
 
 while 1:
-   with open("/home/pi/Projects/html/homeauto/temp.txt") as tempv:
+   with open("/home/pi/Python_Scripts/homeauto/temp.txt") as tempv:
       tempval=tempv.read(1)
       cputemp= int(float(getCPUtemperature()))
-      if (tempval=="1" or tempval=="2") and cputemp<37:
+      if (tempval=="1" or tempval=="2") and cputemp<40:
           GPIO.output(18, False)
           if (counter == 1):
              try:

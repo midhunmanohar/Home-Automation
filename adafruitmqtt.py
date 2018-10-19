@@ -26,7 +26,7 @@ ADAFRUIT_IO_KEY      = '1843a8e537fe47a98d6e0907e8001d6f'
 ADAFRUIT_IO_USERNAME = 'midhunmanohar'  # See https://accounts.adafruit.com
                                                     # to find your username.
 def switchstatus():
-    with open("/home/pi/Projects/html/homeauto/switch.txt") as f:
+    with open("/home/pi/Python_Scripts/homeauto/switch.txt") as f:
 	temp=list(f)[-1]
 	temp=temp.replace("\n","")
 	global data
@@ -40,7 +40,7 @@ def switchoff():
     data['light']='OFF'
     data['fan']='OFF'
     data['time']= datetime.datetime.now().strftime("%d %b %Y %H:%M")
-    with open("/home/pi/Projects/html/homeauto/switch.txt", "w") as f:
+    with open("/home/pi/Python_Scripts/homeauto/switch.txt", "w") as f:
 	json.dump(data,f)
 	f.write("\n")
 
@@ -52,7 +52,7 @@ def switchon():
    data['light']='ON'
    data['fan']='ON'
    data['time']= datetime.datetime.now().strftime("%d %b %Y %H:%M")
-   with open("/home/pi/Projects/html/homeauto/switch.txt", "w") as f:
+   with open("/home/pi/Python_Scripts/homeauto/switch.txt", "w") as f:
 	json.dump(data,f)
 	f.write("\n")
 
@@ -62,7 +62,7 @@ def room1lightON():
 	global data
 	data['light']='ON'
 	data['time']= datetime.datetime.now().strftime("%d %b %Y %H:%M")
-	with open("/home/pi/Projects/html/homeauto/switch.txt", "w") as f:
+	with open("/home/pi/Python_Scripts/homeauto/switch.txt", "w") as f:
 		json.dump(data,f)
 		f.write("\n")
 		
@@ -72,7 +72,7 @@ def room1lightOFF():
 	global data
 	data['light']='OFF'
 	data['time']= datetime.datetime.now().strftime("%d %b %Y %H:%M")
-	with open("/home/pi/Projects/html/homeauto/switch.txt", "w") as f:
+	with open("/home/pi/Python_Scripts/homeauto/switch.txt", "w") as f:
 		json.dump(data,f)
 		f.write("\n")
 		
@@ -82,7 +82,7 @@ def room1fanON():
 	global data
 	data['fan']='ON'
 	data['time']= datetime.datetime.now().strftime("%d %b %Y %H:%M")
-	with open("/home/pi/Projects/html/homeauto/switch.txt", "w") as f:
+	with open("/home/pi/Python_Scripts/homeauto/switch.txt", "w") as f:
 		json.dump(data,f)
 		f.write("\n")
 		
@@ -92,7 +92,7 @@ def room1fanOFF():
 	global data
 	data['fan']='OFF'
 	data['time']= datetime.datetime.now().strftime("%d %b %Y %H:%M")
-	with open("/home/pi/Projects/html/homeauto/switch.txt", "w") as f:
+	with open("/home/pi/Python_Scripts/homeauto/switch.txt", "w") as f:
 		json.dump(data,f)
 		f.write("\n")
 		
@@ -127,7 +127,7 @@ def message(client, feed_id, payload):
 	room1fanOFF()
     if payload=='4':
         switchon()
-    if payload=='4':
+    if payload=='5':
 	switchoff()
 
 

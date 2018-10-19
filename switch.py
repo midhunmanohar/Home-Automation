@@ -17,7 +17,7 @@ b="1"
 switch = {'light':'', 'fan':'','time':''}
 
 def switchstatus():
-	with open("/home/pi/Projects/html/homeauto/switch.txt") as f:
+	with open("/home/pi/Python_Scripts/homeauto/switch.txt") as f:
 		temp=list(f)[-1]
 		temp=temp.replace("\n","")
 		global switch
@@ -28,60 +28,66 @@ try:
 	while True:
 		input1=GPIO.input(40)
 		input2=GPIO.input(38)
-		with open("/home/pi/Projects/html/homeauto/r1.light.txt", "r+") as light:
-      			Lstate=light.read(1)
-		with open("/home/pi/Projects/html/homeauto/r1.fan.txt","r+") as fan:
-			Fstate=fan.read(1)
+#		with open("/home/pi/Projects/html/homeauto/r1.light.txt", "r+") as light:
+#      			Lstate=light.read(1)
+#		with open("/home/pi/Projects/html/homeauto/r1.fan.txt","r+") as fan:
+#			Fstate=fan.read(1)
+		with open("/home/pi/Python_Scripts/homeauto/switch.txt") as f:
+			temp=list(f)[-1]
+			temp=temp.replace("\n","")
+			data=json.loads(temp)
+			Lstate=switch['light']
+			Fstate=switch['fan']
 		if input1 == 0:
-			if Lstate=="0":
+			if Lstate=="OFF":
 				#print ("Switch OFF Light")
 				GPIO.output(11, 0)
 				switch['light']='ON'
 				switch['time']= datetime.datetime.now().strftime("%d %b %Y %H:%M")
-				with open("/home/pi/Projects/html/homeauto/r1.light.txt","r+") as light:
-					light.write(b)
-					light.flush()
-					os.fsync(light.fileno())
-				with open("/home/pi/Projects/html/homeauto/switch.txt", "w") as f:
+#				with open("/home/pi/Projects/html/homeauto/r1.light.txt","r+") as light:
+#					light.write(b)
+#					light.flush()
+#					os.fsync(light.fileno())
+				with open("/home/pi/Python_Scripts/homeauto/switch.txt", "w") as f:
 		            		json.dump(switch,f)
 		            		f.write("\n")
 
-			if Lstate=="1":
+			if Lstate=="ON":
 				#print ("Switch ON Light")
 				GPIO.output(11, 1)
 				switch['light']='OFF'
 				switch['time']= datetime.datetime.now().strftime("%d %b %Y %H:%M")
-				with open("/home/pi/Projects/html/homeauto/r1.light.txt","r+") as light:
-					light.write(a)
-					light.flush()
-					os.fsync(light.fileno())
-				with open("/home/pi/Projects/html/homeauto/switch.txt", "w") as f:
+#				with open("/home/pi/Projects/html/homeauto/r1.light.txt","r+") as light:
+#					light.write(a)
+#					light.flush()
+#					os.fsync(light.fileno())
+				with open("/home/pi/Python_Scripts/homeauto/switch.txt", "w") as f:
 		            		json.dump(switch,f)
 		            		f.write("\n")
 		if input2 == 0:
-			if Fstate=="0":
+			if Fstate=="OFF":
 				#print ("Switch OFF Fan")
 				GPIO.output(16, 0)
 				switch['fan']='ON'
 				switch['time']= datetime.datetime.now().strftime("%d %b %Y %H:%M")
-				with open("/home/pi/Projects/html/homeauto/r1.fan.txt","r+") as fan:
-					fan.write(b)
-					fan.flush()
-					os.fsync(fan.fileno())
-				with open("/home/pi/Projects/html/homeauto/switch.txt", "w") as f:
+#				with open("/home/pi/Projects/html/homeauto/r1.fan.txt","r+") as fan:
+#					fan.write(b)
+#					fan.flush()
+#					os.fsync(fan.fileno())
+				with open("/home/pi/Python_Scripts/homeauto/switch.txt", "w") as f:
 		            		json.dump(switch,f)
 		            		f.write("\n")
 
-			if Fstate=="1":
+			if Fstate=="ON":
 				#print ("Switch ON Fan")
 				GPIO.output(16, 1)
 				switch['fan']='OFF'
 				switch['time']= datetime.datetime.now().strftime("%d %b %Y %H:%M")
-				with open("/home/pi/Projects/html/homeauto/r1.fan.txt","r+") as fan:
-					fan.write(a)
-					fan.flush()
-					os.fsync(fan.fileno())
-				with open("/home/pi/Projects/html/homeauto/switch.txt", "w") as f:
+#				with open("/home/pi/Projects/html/homeauto/r1.fan.txt","r+") as fan:
+#					fan.write(a)
+#					fan.flush()
+#					os.fsync(fan.fileno())
+				with open("/home/pi/Python_Scripts/homeauto/switch.txt", "w") as f:
 		            		json.dump(switch,f)
 		            		f.write("\n")
 
