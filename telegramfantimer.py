@@ -20,7 +20,7 @@ GPIO.setup(16, GPIO.OUT)
 
 
 def switchstatus():
-    with open("/home/pi/Projects/html/homeauto/switch.txt") as f:
+    with open("/home/pi/Python_Scripts/homeauto/switch.txt") as f:
 		temp=list(f)[-1]
 		temp=temp.replace("\n","")
 		global data
@@ -34,10 +34,6 @@ def switchoff():
 	data['fan']='OFF'
 	data['time']= datetime.datetime.now().strftime("%d %b %Y %H:%M")
 	a="0"
-	with open("/home/pi/Projects/html/homeauto/r1.fan.txt","r+") as fan:
-		fan.write(a)
-		fan.flush()
-		os.fsync(fan.fileno())
 	with open("/home/pi/Projects/html/homeauto/switch.txt", "w") as f:
 		json.dump(data,f)
 		f.write("\n")
@@ -48,33 +44,19 @@ def handle(msg):
     chat_id = msg['chat']['id']
     command = msg['text']
     t= str(datetime.datetime.now().strftime("%-S"))
-
-    if command=='/help':
+    print (command)
+    if command=='/help@g6home_bot':
        while True:
           try:
-             bot.sendMessage(chat_id, text="Available commands: \n/set0430\n/set0500\n/set0530\n/set0600\n/set0830\n/clear\n")
+             bot.sendMessage(chat_id, text="Available commands: \n/set0500\n/set0530\n/set0600\n/set0630\n/set0700\n/set0830\n/set0900\n/clear\n")
+             print ("Available commands: \n/set0500\n/set0530\n/set0600\n/set0630\n/set0700\n/set0830\n/set0900\n/clear\n")
              break
           except:
              print("No Internet, retrying...")
              sleep(10)
 
-    if command=='/set0430':
+    if command=='/set0500@g6home_bot':
        check="1"
-       while True:
-          try:
-             bot.sendMessage(chat_id, text="Fan will switch OFF at 04:30AM")
-             break
-          except:
-             print("No Internet, retrying...")
-             sleep(10)
-       #print ("check 1")
-       with open("/home/pi/Projects/html/homeauto/timer.txt","w") as temp:
-          temp.write(check +"\n")
-          temp.flush()
-          os.fsync(temp.fileno())
-
-    if command=='/set0500':
-       check="2"
        while True:
           try:
              bot.sendMessage(chat_id, text="Fan will switch OFF at 05:00AM")
@@ -83,13 +65,13 @@ def handle(msg):
              print("No Internet, retrying...")
              sleep(10)
        #print ("check 1")
-       with open("/home/pi/Projects/html/homeauto/timer.txt","w") as temp:
+       with open("/home/pi/Python_Scripts/homeauto/timer.txt","w") as temp:
           temp.write(check +"\n")
           temp.flush()
           os.fsync(temp.fileno())
- 
-    if command=='/set0530':
-       check="3"
+
+    if command=='/set0530@g6home_bot':
+       check="2"
        while True:
           try:
              bot.sendMessage(chat_id, text="Fan will switch OFF at 05:30AM")
@@ -102,9 +84,9 @@ def handle(msg):
           temp.write(check +"\n")
           temp.flush()
           os.fsync(temp.fileno())
-
-    if command=='/set0600':
-       check="4"
+ 
+    if command=='/set0600@g6home_bot':
+       check="3"
        while True:
           try:
              bot.sendMessage(chat_id, text="Fan will switch OFF at 06:00AM")
@@ -113,13 +95,43 @@ def handle(msg):
              print("No Internet, retrying...")
              sleep(10)
        #print ("check 1")
-       with open("/home/pi/Projects/html/homeauto/timer.txt","w") as temp:
+       with open("/home/pi/Python_Scripts/homeauto/timer.txt","w") as temp:
+          temp.write(check +"\n")
+          temp.flush()
+          os.fsync(temp.fileno())
+
+    if command=='/set0630@g6home_bot':
+       check="4"
+       while True:
+          try:
+             bot.sendMessage(chat_id, text="Fan will switch OFF at 06:30AM")
+             break
+          except:
+             print("No Internet, retrying...")
+             sleep(10)
+       #print ("check 1")
+       with open("/home/pi/Python_Scripts/homeauto/timer.txt","w") as temp:
           temp.write(check +"\n")
           temp.flush()
           os.fsync(temp.fileno())
 	
-    if command=='/set0830':
+    if command=='/set0700@g6home_bot':
        check="5"
+       while True:
+          try:
+             bot.sendMessage(chat_id, text="Fan will switch OFF at 07:00AM")
+             break
+          except:
+             print("No Internet, retrying...")
+             sleep(10)
+       #print ("check 1")
+       with open("/home/pi/Python_Scripts/homeauto/timer.txt","w") as temp:
+          temp.write(check +"\n")
+          temp.flush()
+          os.fsync(temp.fileno())
+
+    if command=='/set0830@g6home_bot':
+       check="6"
        while True:
           try:
              bot.sendMessage(chat_id, text="Fan will switch OFF at 08:30AM")
@@ -128,12 +140,27 @@ def handle(msg):
              print("No Internet, retrying...")
              sleep(10)
        #print ("check 1")
-       with open("/home/pi/Projects/html/homeauto/timer.txt","w") as temp:
+       with open("/home/pi/Python_Scripts/homeauto/timer.txt","w") as temp:
           temp.write(check +"\n")
           temp.flush()
           os.fsync(temp.fileno())
 
-    if command=='/clear':
+    if command=='/set0900@g6home_bot':
+       check="7"
+       while True:
+          try:
+             bot.sendMessage(chat_id, text="Fan will switch OFF at 09:00AM")
+             break
+          except:
+             print("No Internet, retrying...")
+             sleep(10)
+       #print ("check 1")
+       with open("/home/pi/Python_Scripts/homeauto/timer.txt","w") as temp:
+          temp.write(check +"\n")
+          temp.flush()
+          os.fsync(temp.fileno())
+		  
+    if command=='/clear@g6home_bot':
        check="0"
        while True:
           try:
@@ -143,7 +170,7 @@ def handle(msg):
              print("No Internet, retrying...")
              sleep(10)
        #print ("check 1")
-       with open("/home/pi/Projects/html/homeauto/timer.txt","w") as temp:
+       with open("/home/pi/Python_Scripts/homeauto/timer.txt","w") as temp:
           temp.write(check +"\n")
           temp.flush()
           os.fsync(temp.fileno())
