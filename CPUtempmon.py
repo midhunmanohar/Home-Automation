@@ -22,20 +22,22 @@ while 1:
           GPIO.output(18, False)
           if (counter == 1):
              try:
-                requests.get(url+'CPU Fan OFF')
+                #requests.get(url+'CPU Fan OFF')
+		print("CPU Fan OFF")
 	        counter = 0
              except:
                 print("Connection error... retrying...")
-      if (tempval=="1" or tempval=="2") and cputemp>41:
+      if (tempval=="1" or tempval=="2") and cputemp>44:
  	  GPIO.output(18, True)
 	  if (counter == 0):
 	     try:
-                requests.get(url+'CPU Fan ON')
+                #requests.get(url+'CPU Fan ON')
+		print("CPU Fan OFF")
 		print(counter)
 		counter = 1
              except:
                 print("Connection error... retrying...")
-      if tempval=="1" and cputemp>55:
+      if tempval=="1" and cputemp>59:
          while True:
             try:
                requests.get(url+'CPU Temp High '+getCPUtemperature())
