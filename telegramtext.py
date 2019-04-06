@@ -9,8 +9,7 @@ import os
 import json
 from telepot.loop import MessageLoop
 import RPi.GPIO as GPIO
-#import serial
-#ser=serial.Serial('/dev/ttyS0',115200)
+import serial
 
 
 bot = telepot.Bot('398042579:AAHsbBQLmBZkj3H0ZrZsz6ymrFt-Chxy14I')
@@ -21,10 +20,10 @@ GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BOARD)
 GPIO.setup(11, GPIO.OUT)
 GPIO.setup(16, GPIO.OUT)
-#voltage = 0.0
-#sum = 0
-#sample_count = 0
-#num_samples = 10
+voltage = 0.0
+sum = 0
+sample_count = 0
+num_samples = 10
 
 
 def tempshow():
@@ -62,21 +61,22 @@ def getCPUtemperature():
     res = os.popen('vcgencmd measure_temp').readline()
     return(res.replace("temp=","").replace("'C\n",""))
 
-#def voltagesensor():
-#   sum = 0
-#   sample_count = 0
-#   ser=serial.Serial('/dev/ttyS0',115200)
-#   while (sample_count < num_samples):
-#        sum = sum + int(ser.readline().replace("\n",""))
-#        sample_count = sample_count + 1
-#   try:
-#      voltage = (float(sum)/float(num_samples)*3.93)/1023
-      #print(voltage)
-#      voltage = voltage*4.85
-#   except:
-#      print("Sensor down")
-#   #print ('{0:0.1f}'.format(voltage))
-#   return(voltage)
+def voltagesensor():
+  sum = 0
+  sample_count = 0
+  ser=serial.Serial('/dev/ttyS0',115200)
+  while (sample_count < num_samples):
+       sum = sum + int(ser.readline().replace("\n",""))
+       sample_count = sample_count + 1
+  try:
+     voltage = (float(sum)/float(num_samples)*4.75)/1023
+     print(voltage)
+     voltage = voltage*4.95
+     print(voltage)
+  except:
+     print("Sensor down")
+  #print ('{0:0.1f}'.format(voltage))
+  return(voltage)
 
 def handle(msg):
     global check
@@ -205,15 +205,15 @@ def handle(msg):
              print("No Internet, retrying...")
              sleep(10)
 
-#    if command=='/voltage':
-#       while True:
-#         try:
-#           bot.sendMessage(chat_id, text="Reading battery voltage...")
-#           bot.sendMessage(chat_id, text="Battery Voltage: "+'{0:0.1f}'.format(voltagesensor()))
-#           break
-#         except:
-#           print("No Internet, retrying...")
-#           sleep(10)
+    if command=='/voltage':
+       while True:
+          try:
+             bot.sendMessage(chat_id, text="Reading battery voltage...")
+             bot.sendMessage(chat_id, text="Battery Voltage: "+'{0:0.1f}'.format(voltagesensor()))
+             break
+          except:
+             print("No Internet, retrying...")
+             sleep(10)
 
 
 #print ("main loop")
